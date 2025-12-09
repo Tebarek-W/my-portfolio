@@ -19,14 +19,12 @@ export const skills: Skill[] = [
   { name: "Tailwind CSS", level: 92, category: "frontend", icon: "tailwind" },
   { name: "Material Ui", level: 75, category: "frontend", icon: "materialui" },
   
-  
   // Backend
   { name: "Node.js", level: 88, category: "backend", icon: "nodejs" },
   { name: "Python", level: 85, category: "backend", icon: "python" },
   { name: "PostgreSQL", level: 80, category: "backend", icon: "postgresql" },
   { name: "MongoDB", level: 78, category: "backend", icon: "mongodb" },
   { name: "Express.js", level: 85, category: "backend", icon: "express" },
-  
   
   // Tools
   { name: "Git", level: 90, category: "tools", icon: "git" },
@@ -87,15 +85,15 @@ export const projects: Project[] = [
   },
   {
     id: 5,
-    title: "Task Management App",
-    description: "Collaborative project management tool with real-time updates",
-    longDescription: "A Trello-like application with real-time collaboration, drag-and-drop functionality, and team management features.",
-    image: "/images/projects/taskapp.jpg",
-    technologies: ["React", "Node.js", "Socket.io", "MongoDB", "Material-UI"],
-    githubUrl: "https://github.com/Tebarek-W",
-    liveUrl: "#",
-    featured: false,
-    slug: "task-management-app"
+    title: "Super BD Consulting Website",
+    description: "Professional website for an engineering consultancy firm with responsive design and modern UI.",
+    longDescription: "A fully responsive, visually polished web application for Super BD Consulting, an engineering consultancy. The website highlights services like Soil Investigation, Concrete Testing, Asphalt & Aggregate, Geotechnical Investigation, Environmental Testing, and Consultancy & Reporting. Built with a clean layout, smooth transitions, and advanced theme options (light/dark), the site ensures excellent user experience across all devices.",
+    image: "/images/projects/super-bd-consulting.jpg",
+    technologies: ["React", "Next.js", "Tailwind CSS", "TypeScript", "HTML", "CSS"],
+    githubUrl: "https://github.com/Tebarek-W/Super-BD-Consulting-Engineering",
+    liveUrl: "https://super-bd-consulting-engineering.vercel.app",
+    featured: true,
+    slug: "super-bd-consulting-website"
   },
   {
     id: 6,
@@ -125,6 +123,20 @@ export const experiences: Experience[] = [
     ],
     technologies: ["React", "PHP", "JavaScript", "HTML", "CSS", "MySQL", "Git"],
     logo: "/images/companies/makalla.jpg"
+  },
+  {
+    id: 2,
+    company: "GLYME TECH Solutions",
+    position: "Full-stack Web Developer (Intern)",
+    duration: "Nov 2025 - Present",
+    description: [
+      "Currently working on company projects as part of the development team",
+      "Delivered the Super BD Consulting engineering website with responsive design and modern UI",
+      "Collaborating with team members to implement features and maintain project quality",
+      "Gaining advanced experience in full-stack development and project delivery in real-world environments"
+    ],
+    technologies: ["React", "Next.js", "Tailwind CSS", "Material UI", "JavaScript", "HTML", "CSS", "Git"],
+    logo: "/images/companies/glyme.jpg"
   }
 ];
 
