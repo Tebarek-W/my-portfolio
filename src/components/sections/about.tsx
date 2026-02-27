@@ -101,7 +101,7 @@ export function AboutSection() {
                 My academic journey provided a solid foundation in the core principles of software engineering.
               </p>
               <p>
-                I specialize in <span className="text-accent-indigo font-bold italic">Next.js and TypeScript</span>, 
+                I specialize in <span className="text-accent-indigo font-bold italic">React, Next.js, TypeScript, and JavaScript</span>, 
                 striving to build applications that are not just functional, but also visually stunning 
                 and highly performant.
               </p>
