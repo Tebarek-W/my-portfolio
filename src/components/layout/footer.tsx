@@ -2,15 +2,11 @@
 
 import { socialLinks, personalInfo } from "@/data/portfolio-data";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Mail, Phone } from "lucide-react";
 
 export function Footer() {
-  const [currentYear, setCurrentYear] = useState<number | null>(null);
-
-  useEffect(() => {
-    setCurrentYear(new Date().getFullYear());
-  }, []);
+  const [currentYear] = useState<number>(new Date().getFullYear());
 
   return (
     <footer className="bg-[#030303] text-white relative overflow-hidden border-t border-white/5">

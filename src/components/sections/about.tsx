@@ -40,14 +40,20 @@ const milestones = [
   },
   {
     year: "2025",
-    title: "Industry Entrance & Graduation",
-    desc: "Earned my BSc in Computer Science from Haramaya University and launched my professional career by joining GLYME TECH as a Full-stack Developer.",
+    title: "The Culmination Project",
+    desc: "Graduated with honors from Haramaya University, delivering a Real-time Facial Recognition Attendance System as my Final Year Project. Joined GLYME TECH full-time.",
     icon: GraduationCap
   },
   {
     year: "2024",
-    title: "Innovation & Delivery",
-    desc: "Developed a real-time facial recognition attendance system and managed complex community platforms, proving my ability to ship production-ready software.",
+    title: "Strategic Development",
+    desc: "Achieved significant milestones during intensive internships, delivering community platforms and mastering full-stack workflows while maintaining peak academic performance.",
+    icon: Code
+  },
+  {
+    year: "2023",
+    title: "Academic Project Proliferation",
+    desc: "Developed a diverse array of over 15+ specialized projects for university assessments, mastering various tech stacks and software engineering methodologies.",
     icon: Code
   },
   {
