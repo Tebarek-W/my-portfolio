@@ -20,14 +20,14 @@ export function HeroSection() {
 
   return (
     <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-10">
-      {/* Background Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary-50 to-primary-100 dark:from-gray-900 dark:to-gray-800" />
+      {/* Mesh Gradient Background */}
+      <div className="absolute inset-0 mesh-gradient opacity-60 dark:opacity-40" />
       
       {/* Animated Background Elements */}
-      <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-float"></div>
-        <div className="absolute top-1/3 right-1/4 w-64 h-64 bg-primary-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-float" style={{ animationDelay: '2s' }}></div>
-        <div className="absolute bottom-1/4 left-1/2 w-64 h-64 bg-primary-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-float" style={{ animationDelay: '4s' }}></div>
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-200/30 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-float" />
+        <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-accent-violet/20 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-float" style={{ animationDelay: '2s' }} />
+        <div className="absolute bottom-1/4 left-1/2 w-96 h-96 bg-accent-cyan/20 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-float" style={{ animationDelay: '4s' }} />
       </div>
 
       <div className="container-custom relative z-10 pt-8">
@@ -40,22 +40,24 @@ export function HeroSection() {
             transition={{ duration: 0.8 }}
           >
             <motion.h1
-              className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6"
+              className="text-5xl md:text-7xl lg:text-8xl font-bold font-display mb-6 tracking-tight"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.8 }}
             >
-              Hi, I'm{" "}
+              Hi, I&apos;m{" "}
               <span className="gradient-text">{personalInfo.name}</span>
             </motion.h1>
 
             <motion.div
-              className="text-xl md:text-2xl lg:text-3xl text-gray-600 dark:text-gray-300 mb-8"
+              className="text-xl md:text-2xl lg:text-3xl font-sans text-gray-600 dark:text-gray-300 mb-8"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.8 }}
             >
-              <span className="font-semibold">{personalInfo.title} And Computer Science Graduate</span> 
+              <span className="font-medium bg-white/40 dark:bg-white/5 backdrop-blur-sm px-4 py-1 rounded-full border border-white/20">
+                {personalInfo.title}
+              </span> 
             </motion.div>
 
             <motion.p

@@ -32,6 +32,7 @@ export const skills: Skill[] = [
   { name: "Docker", level: 75, category: "tools", icon: "docker" },
   { name: "VS Code", level: 95, category: "tools", icon: "vscode" },
   { name: "Cursor AI", level: 85, category: "tools", icon: "cursor" },
+  { name: "AWS", level: 87, category: "tools", icon: "aws" },
 ];
 
 export const projects: Project[] = [
@@ -112,31 +113,31 @@ export const projects: Project[] = [
 export const experiences: Experience[] = [
   {
     id: 1,
+    company: "GLYME TECH Solutions",
+    position: "Full-stack Web Developer",
+    duration: "Sep 2025 - Mar 2026",
+    description: [
+      "Built high-performance web apps using Next.js, React, and Node.js with 99.9% uptime",
+      "Optimized Senedu ERP operations by architecting custom workflows and robust RBAC security",
+      "Designed secure RESTful APIs featuring role-based authentication and access control",
+      "Delivered the Super BD Consulting engineering website with responsive design and modern UI",
+      "Collaborated with team members to implement features and maintain project quality"
+    ],
+    technologies: ["React", "Next.js", "Tailwind CSS", "Node.js", "TypeScript", "JavaScript", "HTML", "CSS", "Git"],
+    logo: "/images/companies/glyme.jpg"
+  },
+  {
+    id: 2,
     company: "Makalla Technologies",
     position: "Full-stack Web Developer (Intern)",
     duration: "Jun 2024 - Sep 2024",
     description: [
       "Delivered a community membership web app on time by delegating tasks based on team strengths",
       "Implemented key features like user authentication and admin controls using React and PHP",
-      "Collaborated with team members to ensure project milestones were met efficiently",
-      "Gained hands-on experience in full-stack development and agile project management"
+      "Collaborated with team members to ensure project milestones were met efficiently"
     ],
     technologies: ["React", "PHP", "JavaScript", "HTML", "CSS", "MySQL", "Git"],
     logo: "/images/companies/makalla.jpg"
-  },
-  {
-    id: 2,
-    company: "GLYME TECH Solutions",
-    position: "Full-stack Web Developer (Intern)",
-    duration: "Nov 2025 - Present",
-    description: [
-      "Currently working on company projects as part of the development team",
-      "Delivered the Super BD Consulting engineering website with responsive design and modern UI",
-      "Collaborating with team members to implement features and maintain project quality",
-      "Gaining advanced experience in full-stack development and project delivery in real-world environments"
-    ],
-    technologies: ["React", "Next.js", "Tailwind CSS", "Material UI", "JavaScript", "HTML", "CSS", "Git"],
-    logo: "/images/companies/glyme.jpg"
   }
 ];
 

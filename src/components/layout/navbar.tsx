@@ -81,7 +81,7 @@ export function Navbar() {
 
   return (
     <motion.nav
-      className="fixed top-0 w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-md z-50 border-b border-gray-200 dark:border-gray-800"
+      className="fixed top-0 w-full glass z-50 transition-all duration-300"
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
@@ -89,7 +89,7 @@ export function Navbar() {
       <div className="container-custom">
         <div className="flex justify-between items-center py-4">
           <motion.div
-            className="text-2xl font-bold gradient-text"
+            className="text-2xl font-bold font-display gradient-text"
             whileHover={{ scale: 1.05 }}
           >
             TW

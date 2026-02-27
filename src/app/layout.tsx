@@ -1,25 +1,27 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Outfit, Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/providers/theme-provider';
 import { Toaster } from 'react-hot-toast';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit' });
+const plusJakarta = Plus_Jakarta_Sans({ subsets: ['latin'], variable: '--font-plus-jakarta' });
 
 export const metadata: Metadata = {
   title: {
     default: 'Tebarek Wachamo - Full Stack Developer',
-    template: '%s | Alex Johnson'
+    template: '%s | Tebarek Wachamo'
   },
   description: 'Full-stack developer specializing in React, Next.js, Node.js, and modern web technologies. Building exceptional digital experiences.',
   keywords: ['full-stack developer', 'react', 'next.js', 'typescript', 'web development'],
   authors: [{ name: 'Tebarek Wachamo' }],
   creator: 'Tebarek Wachamo',
-  metadataBase: new URL('https://alexjohnson.dev'),
+  metadataBase: new URL('https://tebarek.dev'),
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://alexjohnson.dev',
+    url: 'https://tebarek.dev',
     title: 'Tebarek Wachamo - Full Stack Developer',
     description: 'Full-stack developer building exceptional digital experiences',
     siteName: 'Tebarek Wachamo Portfolio',
@@ -49,8 +51,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${outfit.variable} ${plusJakarta.variable}`}>
+      <body className="font-sans antialiased selection:bg-primary-500/30">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
           {children}
           <Toaster position="top-right" />

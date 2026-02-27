@@ -2,125 +2,82 @@
 
 import { motion } from "framer-motion";
 import { experiences } from "@/data/portfolio-data";
-import { Card, CardContent } from "@/components/ui/card";
 
 export function ExperienceSection() {
   return (
-    <section id="experience" className="section-padding">
-      <div className="container-custom">
+    <section id="experience" className="section-padding bg-slate-50 dark:bg-[#08080a] relative overflow-hidden">
+      <div className="container-custom relative z-10">
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-20"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Work <span className="gradient-text">Experience</span>
+          <h2 className="text-4xl md:text-5xl font-bold font-display mb-4">
+            Professional <span className="gradient-text">Journey</span>
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            My professional journey and career milestones
+          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-sans">
+            My career highlights and the places I&apos;ve contributed my skills.
           </p>
         </motion.div>
 
-        <div className="max-w-4xl mx-auto">
-          <div className="relative">
-            {/* Timeline line */}
-            <div className="absolute left-4 md:left-1/2 transform md:-translate-x-1/2 w-1 h-full bg-primary-200 dark:bg-primary-800"></div>
-
-            {/* Experience items */}
+        <div className="max-w-5xl mx-auto">
+          <div className="space-y-8">
             {experiences.map((experience, index) => (
               <motion.div
                 key={experience.id}
-                className={`flex items-start mb-12 ${
-                  index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-                }`}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="glass-card group overflow-hidden rounded-[2rem] border border-white/10"
               >
-                {/* Timeline dot */}
-                <div className="absolute left-4 md:left-1/2 transform md:-translate-x-1/2 w-4 h-4 bg-primary-600 rounded-full border-4 border-white dark:border-gray-900 z-10 mt-4"></div>
+                <div className="p-8 md:p-10 flex flex-col md:flex-row gap-8 items-start">
+                  {/* Left: Company Logo/Initials */}
+                  <div className="flex-shrink-0 w-20 h-20 bg-gradient-to-br from-primary-500 to-accent-violet rounded-3xl flex items-center justify-center shadow-xl shadow-primary-500/20 group-hover:rotate-6 transition-transform duration-500">
+                    <span className="text-white font-bold text-2xl font-display">
+                      {experience.company.charAt(0)}
+                    </span>
+                  </div>
 
-                {/* Content */}
-                <div
-                  className={`ml-12 md:ml-0 md:w-1/2 ${
-                    index % 2 === 0 ? "md:pr-12" : "md:pl-12"
-                  }`}
-                >
-                  <Card className="card-hover">
-                    <CardContent className="p-6">
-                      {/* Company Logo and Info - FIXED SPACING */}
-                      <div
-                        className={`flex items-center mb-4 ${
-                          index % 2 === 0 ? "md:flex-row-reverse" : ""
-                        }`}
-                      >
-                        {/* Logo Container - Added margin for spacing */}
-                        <div
-                          className={`w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-700 rounded-lg flex items-center justify-center ${
-                            index % 2 === 0 ? "md:ml-6 ml-4" : "mr-6 md:mr-4"
-                          }`}
-                        >
-                          <span className="text-white font-bold text-xs">
-                            {experience.company
-                              .split(" ")
-                              .map((word) => word[0])
-                              .join("")
-                              .toUpperCase()}
-                          </span>
-                        </div>
-                        {/* Company Info - Added more spacing */}
-                        <div
-                          className={`flex-1 ${
-                            index % 2 === 0 ? "text-right" : ""
-                          } space-y-1`}
-                        >
-                          <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                  {/* Right: Content */}
+                  <div className="flex-1 space-y-4">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
+                       <div>
+                          <h3 className="text-2xl font-bold font-display text-gray-900 dark:text-white group-hover:text-primary-500 transition-colors">
                             {experience.company}
                           </h3>
-                          <p className="text-primary-600 dark:text-primary-400 font-semibold">
+                          <p className="text-primary-600 dark:text-primary-400 font-bold font-sans">
                             {experience.position}
                           </p>
-                          <p className="text-sm text-gray-500 dark:text-gray-400">
-                            {experience.duration}
-                          </p>
-                        </div>
-                      </div>
+                       </div>
+                       <span className="px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-xs font-bold font-sans text-gray-500 dark:text-gray-400">
+                          {experience.duration}
+                       </span>
+                    </div>
 
-                      {/* Description - Fixed justified text */}
-                      <ul className="space-y-2 text-gray-600 dark:text-gray-300 mt-4">
-                        {experience.description.map((item, itemIndex) => (
-                          <li
-                            key={itemIndex}
-                            className="flex items-start text-sm"
-                          >
-                            <span className="mr-2 mt-0.5">•</span>
-                            <span className="text-justify leading-relaxed">
-                              {item}
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
+                    <ul className="space-y-3 mt-4">
+                      {experience.description.map((item, itemIndex) => (
+                        <li key={itemIndex} className="flex items-start text-gray-600 dark:text-gray-300 text-sm font-sans leading-relaxed">
+                          <span className="mr-3 mt-1.5 w-1.5 h-1.5 rounded-full bg-primary-500 flex-shrink-0" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
 
-                      {/* Technologies */}
-                      <div
-                        className={`flex flex-wrap gap-2 mt-4 ${
-                          index % 2 === 0 ? "justify-end" : ""
-                        }`}
-                      >
-                        {experience.technologies.map((tech) => (
-                          <span
-                            key={tech}
-                            className="px-2 py-1 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 text-xs rounded-md"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
+                    {/* Technologies Tag Cloud */}
+                    <div className="flex flex-wrap gap-2 pt-4">
+                      {experience.technologies.map((tech) => (
+                        <span
+                          key={tech}
+                          className="px-3 py-1 bg-primary-500/5 text-primary-600 dark:text-primary-400 text-xs font-bold rounded-full border border-primary-500/10"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </motion.div>
             ))}
