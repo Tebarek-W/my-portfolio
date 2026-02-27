@@ -31,6 +31,33 @@ const funFacts = [
   },
 ];
 
+const milestones = [
+  {
+    year: "2026",
+    title: "Professional Engineering",
+    desc: "Joining GLYME TECH, I transitioned into high-stakes development, architecting complex ERP workflows and high-performance web apps that maintain 99.9% uptime for enterprise clients.",
+    icon: Code
+  },
+  {
+    year: "2025",
+    title: "Academic Excellence",
+    desc: "Graduated with honors from Haramaya University with a BSc in Computer Science. Focused on advanced software architecture and full-stack engineering during my final year research.",
+    icon: GraduationCap
+  },
+  {
+    year: "2024",
+    title: "Practical Mastery",
+    desc: "Spearheaded the development of a real-time facial recognition attendance system and a complex community management platform, bridging the gap between theory and large-scale applications.",
+    icon: Code
+  },
+  {
+    year: "2022",
+    title: "The Genesis",
+    desc: "Wrote my first line of code and discovered a profound passion for digital creation. Started with foundational logic and quickly moved into building interactive web experiences.",
+    icon: Code
+  }
+];
+
 export function AboutSection() {
   return (
     <section id="about" className="section-padding bg-white dark:bg-[#030303] relative overflow-hidden">
@@ -116,11 +143,7 @@ export function AboutSection() {
         <div className="max-w-4xl mx-auto">
           <h3 className="text-3xl font-bold text-center mb-16 font-display">Milestones</h3>
           <div className="space-y-12">
-             {[
-               { year: "2025", title: "Graduation", desc: "BSc in Computer Science from Haramaya University with honors.", icon: GraduationCap },
-               { year: "2024", title: "Project: Dashboard System", desc: "Built a complex analytics dashboard using Next.js and Prisma.", icon: Code },
-               { year: "2022", title: "The Beginning", desc: "Wrote my first line of code and fell in love with software development.", icon: Code }
-             ].map((item, idx) => (
+             {milestones.map((item, idx) => (
                <motion.div 
                 key={idx}
                 initial={{ opacity: 0, y: 20 }}
@@ -130,9 +153,9 @@ export function AboutSection() {
                >
                  <div className="flex-shrink-0 w-16 text-2xl font-bold font-display text-primary-500/40">{item.year}</div>
                  <div className="flex-1 pb-12 border-l border-primary-500/20 pl-8 relative">
-                   <div className="absolute top-0 -left-[5px] w-2.5 h-2.5 rounded-full bg-primary-500" />
-                   <h4 className="text-xl font-bold mb-2 font-display">{item.title}</h4>
-                   <p className="text-gray-600 dark:text-gray-400 text-sm font-sans">{item.desc}</p>
+                    <div className="absolute top-0 -left-[5px] w-2.5 h-2.5 rounded-full bg-primary-500 group-hover:scale-125 transition-transform" />
+                    <h4 className="text-xl font-bold mb-2 font-display">{item.title}</h4>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm font-sans leading-relaxed">{item.desc}</p>
                  </div>
                </motion.div>
              ))}

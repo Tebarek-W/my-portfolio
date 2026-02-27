@@ -9,8 +9,8 @@ import Image from "next/image";
 export function HeroSection() {
   const handleDownloadCV = () => {
     const link = document.createElement('a');
-    link.href = '/cv/Tebarek CV1.pdf';
-    link.download = 'Tebarek-Wachamo CV.pdf';
+    link.href = '/cv/Tebarek_Wachamo_Resume.pdf';
+    link.download = 'Tebarek-WachamoCV.pdf';
     link.click();
   };
 

@@ -37,6 +37,18 @@ export const skills: Skill[] = [
 
 export const projects: Project[] = [
   {
+    id: 0,
+    title: "Kelal-Gebeya",
+    description: "Modern full-stack e-commerce platform with real-time features and secure payments",
+    longDescription: "A high-performance e-commerce solution built with Next.js and Supabase. Features include real-time inventory management, Cloudinary-powered media handling, and a seamless shopping experience with Tailwind CSS aesthetics.",
+    image: "/images/projects/kelal-gebeya.png",
+    technologies: ["Next.js", "Tailwind CSS", "Supabase", "Cloudinary", "PostgreSQL"],
+    githubUrl: "https://github.com/Tebarek-W/Kelal-Gebeya",
+    liveUrl: "#",
+    featured: true,
+    slug: "kelal-gebeya"
+  },
+  {
     id: 1,
     title: "Facial Recognition Attendance System",
     description: "Automated attendance tracking with 95% accuracy, reducing manual effort by 70%",
@@ -89,7 +101,7 @@ export const projects: Project[] = [
     title: "Super BD Consulting Website",
     description: "Professional website for an engineering consultancy firm with responsive design and modern UI.",
     longDescription: "A fully responsive, visually polished web application for Super BD Consulting, an engineering consultancy. The website highlights services like Soil Investigation, Concrete Testing, Asphalt & Aggregate, Geotechnical Investigation, Environmental Testing, and Consultancy & Reporting. Built with a clean layout, smooth transitions, and advanced theme options (light/dark), the site ensures excellent user experience across all devices.",
-    image: "/images/projects/super-bd-consulting.jpg",
+    image: "/images/projects/super-bd-consulting.png",
     technologies: ["React", "Next.js", "Tailwind CSS", "TypeScript", "HTML", "CSS"],
     githubUrl: "https://github.com/Tebarek-W/Super-BD-Consulting-Engineering",
     liveUrl: "https://super-bd-consulting-engineering.vercel.app",
