@@ -34,26 +34,26 @@ const funFacts = [
 const milestones = [
   {
     year: "2026",
-    title: "Professional Engineering",
-    desc: "Joining GLYME TECH, I transitioned into high-stakes development, architecting complex ERP workflows and high-performance web apps that maintain 99.9% uptime for enterprise clients.",
+    title: "Engineering Excellence",
+    desc: "Currently delivering high-impact solutions at GLYME TECH, where I architect high-performance web applications and robust ERP systems with 99.9% uptime for enterprise clients.",
     icon: Code
   },
   {
     year: "2025",
-    title: "Academic Excellence",
-    desc: "Graduated with honors from Haramaya University with a BSc in Computer Science. Focused on advanced software architecture and full-stack engineering during my final year research.",
+    title: "Industry Entrance & Graduation",
+    desc: "Earned my BSc in Computer Science from Haramaya University and launched my professional career by joining GLYME TECH as a Full-stack Developer.",
     icon: GraduationCap
   },
   {
     year: "2024",
-    title: "Practical Mastery",
-    desc: "Spearheaded the development of a real-time facial recognition attendance system and a complex community management platform, bridging the gap between theory and large-scale applications.",
+    title: "Innovation & Delivery",
+    desc: "Developed a real-time facial recognition attendance system and managed complex community platforms, proving my ability to ship production-ready software.",
     icon: Code
   },
   {
     year: "2022",
     title: "The Genesis",
-    desc: "Wrote my first line of code and discovered a profound passion for digital creation. Started with foundational logic and quickly moved into building interactive web experiences.",
+    desc: "Wrote my first line of code and discovered a profound passion for digital creation, setting the foundation for my engineering journey.",
     icon: Code
   }
 ];
@@ -151,7 +151,7 @@ export function AboutSection() {
                 viewport={{ once: true }}
                 className="flex gap-8 items-start relative"
                >
-                 <div className="flex-shrink-0 w-16 text-2xl font-bold font-display text-primary-500/40">{item.year}</div>
+                 <div className="flex-shrink-0 w-20 text-2xl font-black font-display text-primary-600 dark:text-primary-400 drop-shadow-sm">{item.year}</div>
                  <div className="flex-1 pb-12 border-l border-primary-500/20 pl-8 relative">
                     <div className="absolute top-0 -left-[5px] w-2.5 h-2.5 rounded-full bg-primary-500 group-hover:scale-125 transition-transform" />
                     <h4 className="text-xl font-bold mb-2 font-display">{item.title}</h4>
