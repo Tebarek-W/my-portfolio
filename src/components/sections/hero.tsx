@@ -60,7 +60,7 @@ export function HeroSection() {
 
   const itemVariants = {
     hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" as const } },
   };
 
   return (
@@ -158,7 +158,7 @@ export function HeroSection() {
             transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
           >
             <motion.div 
-              className="relative w-80 h-80 mx-auto lg:mx-0 cursor-pointer"
+              className="relative w-96 h-96 mx-auto lg:mx-0 cursor-pointer"
               style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
               onMouseMove={handleMouseMove}
               onMouseLeave={handleMouseLeave}
@@ -175,8 +175,8 @@ export function HeroSection() {
                 <Image
                   src="/images/profile.JPG"
                   alt={`${personalInfo.name} - ${personalInfo.title}`}
-                  width={320}
-                  height={320}
+                  width={400}
+                  height={400}
                   className="w-full h-full object-cover rounded-full transition-transform duration-500 hover:scale-110"
                   priority
                 />
