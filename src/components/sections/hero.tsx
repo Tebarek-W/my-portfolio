@@ -20,15 +20,28 @@ export function HeroSection() {
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  // 3D Tilt Effect logic
+  // 3D Tilt Effect logic - Optimized for professional feel
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
-  const mouseXSpring = useSpring(x);
-  const mouseYSpring = useSpring(y);
+  const mouseXSpring = useSpring(x, { stiffness: 150, damping: 20 });
+  const mouseYSpring = useSpring(y, { stiffness: 150, damping: 20 });
 
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["15deg", "-15deg"]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-15deg", "15deg"]);
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["8deg", "-8deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-8deg", "8deg"]);
+  
+  // Floating elements variants
+  const floatVariants = (delay: number) => ({
+    animate: {
+      y: [0, -15, 0],
+      transition: {
+        duration: 5,
+        repeat: Infinity,
+        ease: "easeInOut" as const,
+        delay
+      }
+    }
+  });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -155,21 +168,29 @@ export function HeroSection() {
             className="relative"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
+            transition={{ duration: 1.2, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
           >
             <motion.div 
-              className="relative w-96 h-96 mx-auto lg:mx-0 cursor-pointer"
+              className="relative w-96 h-96 mx-auto lg:mx-0 cursor-pointer group/image"
               style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
               onMouseMove={handleMouseMove}
               onMouseLeave={handleMouseLeave}
             >
-              {/* Animated gradient border */}
-              <div className="absolute inset-0 bg-gradient-to-r from-primary-400 to-primary-600 rounded-full animate-spin-slow opacity-50 blur-xl" style={{ animation: 'spin 10s linear infinite' }}></div>
-              <div className="absolute inset-0 bg-gradient-to-tr from-primary-500 via-accent-violet to-accent-cyan rounded-full animate-spin-slow" style={{ animation: 'spin 15s linear infinite reverse' }}></div>
+              {/* Professional soft glow instead of spinning borders */}
+              <motion.div 
+                className="absolute inset-0 bg-primary-500/20 dark:bg-primary-500/10 rounded-full blur-3xl"
+                animate={{ 
+                  scale: [1, 1.1, 1],
+                  opacity: [0.5, 0.8, 0.5]
+                }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              />
+              
+              <div className="absolute inset-2 border border-white/10 dark:border-white/5 rounded-full z-0" />
               
               {/* Profile image container */}
               <motion.div 
-                className="absolute inset-4 bg-white dark:bg-gray-900 rounded-full overflow-hidden border-4 border-white/10 dark:border-white/5 shadow-2xl"
+                className="absolute inset-4 bg-white dark:bg-gray-900 rounded-full overflow-hidden border-2 border-white/20 dark:border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.1)] dark:shadow-[0_0_50px_rgba(0,0,0,0.3)]"
                 style={{ transform: "translateZ(50px)" }}
               >
                 <Image
@@ -177,27 +198,27 @@ export function HeroSection() {
                   alt={`${personalInfo.name} - ${personalInfo.title}`}
                   width={400}
                   height={400}
-                  className="w-full h-full object-cover rounded-full transition-transform duration-500 hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover/image:scale-105"
                   priority
                 />
               </motion.div>
               
-              {/* Floating tech elements (optional decoration) */}
+              {/* Floating tech elements - Scaled down and slowed for professionalism */}
               <motion.div 
-                className="absolute -top-4 -right-4 w-12 h-12 bg-white dark:bg-gray-800 rounded-2xl shadow-lg flex items-center justify-center border border-white/20"
-                animate={{ y: [0, -10, 0] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute top-4 right-8 w-10 h-10 bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-xl shadow-lg flex items-center justify-center border border-white/20"
+                variants={floatVariants(0)}
+                animate="animate"
                 style={{ transform: "translateZ(80px)" }}
               >
-                <span className="text-xl">🚀</span>
+                <span className="text-lg">🚀</span>
               </motion.div>
               <motion.div 
-                className="absolute -bottom-4 -left-4 w-12 h-12 bg-white dark:bg-gray-800 rounded-2xl shadow-lg flex items-center justify-center border border-white/20"
-                animate={{ y: [0, 10, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                className="absolute bottom-10 left-4 w-10 h-10 bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-xl shadow-lg flex items-center justify-center border border-white/20"
+                variants={floatVariants(1)}
+                animate="animate"
                 style={{ transform: "translateZ(60px)" }}
               >
-                <span className="text-xl">✨</span>
+                <span className="text-lg">✨</span>
               </motion.div>
             </motion.div>
           </motion.div>
