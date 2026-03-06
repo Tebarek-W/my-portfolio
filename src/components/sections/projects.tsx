@@ -6,6 +6,7 @@ import { projects } from "@/data/portfolio-data";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Github } from "lucide-react";
 import Image from "next/image";
+import Magnetic from "@/components/ui/magnetic";
 
 export function ProjectsSection() {
   const featuredProjects = projects.filter(project => project.featured);
@@ -30,6 +31,26 @@ export function ProjectsSection() {
     return project.githubUrl && project.githubUrl !== '#';
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 50, scale: 0.9 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      scale: 1,
+      transition: { duration: 0.6, ease: "easeOut" } 
+    },
+  };
+
   return (
     <section id="projects" className="section-padding bg-slate-50 dark:bg-[#0a0a0c] relative overflow-hidden">
       {/* Background decoration */}
@@ -52,15 +73,19 @@ export function ProjectsSection() {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <motion.div 
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
           {featuredProjects.map((project, index) => (
             <motion.div
               key={project.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="glass-card rounded-2xl overflow-hidden group border border-white/10"
+              variants={cardVariants}
+              whileHover={{ y: -10, transition: { duration: 0.3 } }}
+              className="glass-card rounded-2xl overflow-hidden group border border-white/10 relative"
             >
               {/* Image Container */}
               <div className="relative h-56 overflow-hidden">
@@ -68,45 +93,52 @@ export function ProjectsSection() {
                     src={project.image}
                     alt={project.title}
                     fill
-                    className="object-cover transition-all duration-700 group-hover:scale-105"
+                    className="object-cover transition-all duration-700 group-hover:scale-110 group-hover:rotate-1"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     quality={90}
                     priority={index < 3}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-transparent to-transparent opacity-80 group-hover:opacity-40 transition-opacity duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/20 to-transparent opacity-80 group-hover:opacity-40 transition-opacity duration-500" />
                 
                 {/* Hover Overlay */}
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 backdrop-blur-[2px]">
                   <div className="flex gap-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
                     {hasLiveDemo(project) && (
-                      <Button
-                        size="sm"
-                        onClick={() => handleProjectAction(project, 'live')}
-                        className="bg-white text-gray-900 hover:bg-primary-50 border-0 shadow-xl rounded-full px-5"
-                      >
-                        <ExternalLink className="w-4 h-4 mr-2" />
-                        Demo
-                      </Button>
+                      <Magnetic>
+                        <Button
+                          size="sm"
+                          onClick={() => handleProjectAction(project, 'live')}
+                          className="bg-white text-gray-900 hover:bg-primary-50 border-0 shadow-xl rounded-full px-5"
+                        >
+                          <ExternalLink className="w-4 h-4 mr-2" />
+                          Demo
+                        </Button>
+                      </Magnetic>
                     )}
                     {hasGitHubRepo(project) && (
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => handleProjectAction(project, 'github')}
-                        className="bg-black/50 border-white/20 text-white hover:bg-white/10 backdrop-blur-md rounded-full px-5"
-                      >
-                        <Github className="w-4 h-4 mr-2" />
-                        Code
-                      </Button>
+                      <Magnetic>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handleProjectAction(project, 'github')}
+                          className="bg-black/50 border-white/20 text-white hover:bg-white/10 backdrop-blur-md rounded-full px-5"
+                        >
+                          <Github className="w-4 h-4 mr-2" />
+                          Code
+                        </Button>
+                      </Magnetic>
                     )}
                   </div>
                 </div>
 
                 {/* Tech Badge */}
                 <div className="absolute top-4 left-4">
-                   <span className="px-3 py-1 bg-white/10 backdrop-blur-md border border-white/20 text-white text-[10px] uppercase tracking-wider font-bold rounded-full">
+                   <motion.span 
+                    className="px-3 py-1 bg-white/10 backdrop-blur-md border border-white/20 text-white text-[10px] uppercase tracking-wider font-bold rounded-full"
+                    whileHover={{ scale: 1.1, backgroundColor: "rgba(255,255,255,0.2)" }}
+                   >
                     {project.technologies[0]}
-                  </span>
+                  </motion.span>
                 </div>
               </div>
 
@@ -122,12 +154,13 @@ export function ProjectsSection() {
                 {/* Tech Tags */}
                 <div className="flex flex-wrap gap-2 mb-6">
                   {project.technologies.slice(0, 4).map((tech) => (
-                    <span
+                    <motion.span
                       key={tech}
                       className="px-2.5 py-0.5 bg-primary-500/5 text-primary-600 dark:text-primary-400 text-[10px] font-bold rounded-full border border-primary-500/10"
+                      whileHover={{ scale: 1.05, backgroundColor: "rgba(var(--primary-rgb), 0.1)" }}
                     >
                       {tech}
-                    </span>
+                    </motion.span>
                   ))}
                 </div>
 
@@ -136,18 +169,19 @@ export function ProjectsSection() {
                   <span className="text-xs text-gray-500 dark:text-gray-500 italic">
                     {project.featured ? "Featured Project" : "Developer Tools"}
                   </span>
-                  <button 
+                  <motion.button 
                     onClick={() => handleProjectAction(project, 'live')}
                     className="text-primary-500 hover:text-primary-600 dark:text-primary-400 dark:hover:text-primary-300 font-bold text-sm flex items-center gap-1 group/btn"
+                    whileHover={{ x: 5 }}
                   >
                     Details
                     <ExternalLink className="w-3 h-3 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
-                  </button>
+                  </motion.button>
                 </div>
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         <motion.div
           className="text-center mt-12"
@@ -156,17 +190,19 @@ export function ProjectsSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-          <Button
-            size="lg"
-            variant="outline"
-            className="rounded-full border-primary-500/20 hover:border-primary-500 font-bold group"
-            onClick={() => {
-              window.open('https://github.com/Tebarek-W', '_blank');
-            }}
-          >
-            Explore More on GitHub
-            <Github className="ml-2 w-5 h-5 group-hover:rotate-12 transition-transform" />
-          </Button>
+          <Magnetic>
+            <Button
+              size="lg"
+              variant="outline"
+              className="rounded-full border-primary-500/20 hover:border-primary-500 font-bold group"
+              onClick={() => {
+                window.open('https://github.com/Tebarek-W', '_blank');
+              }}
+            >
+              Explore More on GitHub
+              <Github className="ml-2 w-5 h-5 group-hover:rotate-12 transition-transform" />
+            </Button>
+          </Magnetic>
         </motion.div>
       </div>
     </section>

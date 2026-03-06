@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { personalInfo } from "@/data/portfolio-data";
 import { Code, Coffee, Music, GraduationCap } from "lucide-react";
+import Magnetic from "@/components/ui/magnetic";
 
 const funFacts = [
   {
@@ -65,10 +66,36 @@ const milestones = [
 ];
 
 export function AboutSection() {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.6 }
+    },
+  };
+
   return (
     <section id="about" className="section-padding bg-white dark:bg-[#030303] relative overflow-hidden">
        {/* Background decoration */}
-      <div className="absolute top-1/4 left-0 w-64 h-64 bg-primary-500/5 blur-[100px] rounded-full pointer-events-none" />
+      <motion.div 
+        className="absolute top-1/4 left-0 w-64 h-64 bg-primary-500/5 blur-[100px] rounded-full pointer-events-none"
+        animate={{ 
+          scale: [1, 1.2, 1],
+          opacity: [0.3, 0.5, 0.3],
+        }}
+        transition={{ duration: 8, repeat: Infinity }}
+      />
       
       <div className="container-custom relative z-10">
         <motion.div
@@ -114,58 +141,72 @@ export function AboutSection() {
 
           <motion.div
             className="grid grid-cols-2 gap-6"
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
           >
-            {funFacts.map((fact, index) => (
-              <motion.div
-                key={fact.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="glass-card p-6 rounded-2xl border border-white/10"
-              >
-                <div className="w-12 h-12 bg-primary-500/10 rounded-xl flex items-center justify-center mb-4">
-                  <fact.icon className="w-6 h-6 text-primary-500" />
-                </div>
-                <h4 className="text-3xl font-bold text-gray-900 dark:text-white mb-1 font-display">
-                  {fact.value}
-                </h4>
-                <p className="font-bold text-xs uppercase tracking-widest text-primary-600 dark:text-primary-400 mb-2">
-                  {fact.title}
-                </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400 font-sans">
-                  {fact.description}
-                </p>
-              </motion.div>
+            {funFacts.map((fact) => (
+              <Magnetic key={fact.title}>
+                <motion.div
+                  variants={itemVariants}
+                  whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                  className="glass-card p-6 rounded-2xl border border-white/10 h-full"
+                >
+                  <div className="w-12 h-12 bg-primary-500/10 rounded-xl flex items-center justify-center mb-4">
+                    <fact.icon className="w-6 h-6 text-primary-500" />
+                  </div>
+                  <h4 className="text-3xl font-bold text-gray-900 dark:text-white mb-1 font-display">
+                    {fact.value}
+                  </h4>
+                  <p className="font-bold text-xs uppercase tracking-widest text-primary-600 dark:text-primary-400 mb-2">
+                    {fact.title}
+                  </p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 font-sans">
+                    {fact.description}
+                  </p>
+                </motion.div>
+              </Magnetic>
             ))}
           </motion.div>
         </div>
 
         {/* Timeline (Simplified/Modernized) */}
         <div className="max-w-4xl mx-auto">
-          <h3 className="text-3xl font-bold text-center mb-16 font-display">Milestones</h3>
-          <div className="space-y-12">
-             {milestones.map((item, idx) => (
+          <motion.h3 
+            className="text-3xl font-bold text-center mb-16 font-display"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+          >
+            Milestones
+          </motion.h3>
+          <motion.div 
+            className="space-y-12"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+             {milestones.map((item) => (
                <motion.div 
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="flex gap-8 items-start relative"
+                key={item.year}
+                variants={itemVariants}
+                className="flex gap-8 items-start relative group"
                >
-                 <div className="flex-shrink-0 w-20 text-2xl font-black font-display text-primary-600 dark:text-primary-400 drop-shadow-sm">{item.year}</div>
+                 <div className="flex-shrink-0 w-20 text-2xl font-black font-display text-primary-600 dark:text-primary-400 drop-shadow-sm transition-transform group-hover:scale-110">{item.year}</div>
                  <div className="flex-1 pb-12 border-l border-primary-500/20 pl-8 relative">
-                    <div className="absolute top-0 -left-[5px] w-2.5 h-2.5 rounded-full bg-primary-500 group-hover:scale-125 transition-transform" />
-                    <h4 className="text-xl font-bold mb-2 font-display">{item.title}</h4>
+                    <motion.div 
+                      className="absolute top-0 -left-[5px] w-2.5 h-2.5 rounded-full bg-primary-500" 
+                      whileInView={{ scale: [0, 1.5, 1], opacity: [0, 1] }}
+                      viewport={{ once: true }}
+                    />
+                    <h4 className="text-xl font-bold mb-2 font-display group-hover:text-primary-500 transition-colors">{item.title}</h4>
                     <p className="text-gray-600 dark:text-gray-400 text-sm font-sans leading-relaxed">{item.desc}</p>
                  </div>
                </motion.div>
              ))}
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
