@@ -20,7 +20,7 @@ export function ExperienceSection() {
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
+      transition: { duration: 0.6, ease: "easeOut" as const }
     },
   };
 
@@ -50,7 +50,7 @@ export function ExperienceSection() {
           viewport={{ once: true }}
         >
           <div className="space-y-8">
-            {experiences.map((experience, index) => (
+            {experiences.map((experience) => (
               <motion.div
                 key={experience.id}
                 variants={itemVariants}
