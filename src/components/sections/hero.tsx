@@ -198,7 +198,7 @@ export function HeroSection() {
                   alt={`${personalInfo.name} - ${personalInfo.title}`}
                   width={400}
                   height={400}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover/image:scale-105"
+                  className="w-full h-full object-cover object-top transition-transform duration-700 group-hover/image:scale-105 translate-y-2"
                   priority
                 />
               </motion.div>
