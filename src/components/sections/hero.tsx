@@ -171,7 +171,7 @@ export function HeroSection() {
             transition={{ duration: 1.2, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
           >
             <motion.div 
-              className="relative w-96 h-96 mx-auto lg:ml-auto lg:mr-0 cursor-pointer group/image"
+              className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 mx-auto lg:ml-auto lg:mr-0 cursor-pointer group/image"
               style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
               onMouseMove={handleMouseMove}
               onMouseLeave={handleMouseLeave}
