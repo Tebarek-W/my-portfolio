@@ -89,7 +89,7 @@ export function HeroSection() {
       </div>
 
       <div className="container-custom relative z-10 pt-8">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           {/* Text Content */}
           <motion.div
             className="text-center lg:text-left"
@@ -171,7 +171,7 @@ export function HeroSection() {
             transition={{ duration: 1.2, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
           >
             <motion.div 
-              className="relative w-96 h-96 mx-auto lg:mx-0 cursor-pointer group/image"
+              className="relative w-96 h-96 mx-auto lg:ml-auto lg:mr-0 cursor-pointer group/image"
               style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
               onMouseMove={handleMouseMove}
               onMouseLeave={handleMouseLeave}
