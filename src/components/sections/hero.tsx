@@ -112,10 +112,10 @@ export function HeroSection() {
             </motion.h1>
 
             <motion.div
-              className="text-xl md:text-2xl lg:text-3xl font-sans text-gray-600 dark:text-gray-300 mb-8"
+              className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-sans text-gray-600 dark:text-gray-300 mb-8"
               variants={itemVariants}
             >
-              <span className="font-medium bg-white/40 dark:bg-white/5 backdrop-blur-sm px-4 py-1 rounded-full border border-white/20">
+              <span className="font-medium bg-white/40 dark:bg-white/5 backdrop-blur-sm px-4 py-1 rounded-full border border-white/20 whitespace-nowrap inline-block">
                 {personalInfo.title}
               </span> 
             </motion.div>

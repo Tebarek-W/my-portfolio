@@ -10,11 +10,11 @@ const plusJakarta = Plus_Jakarta_Sans({ subsets: ['latin'], variable: '--font-pl
 
 export const metadata: Metadata = {
   title: {
-    default: 'Tebarek Wachamo - Full Stack Developer',
+    default: 'Tebarek Wachamo - Software Engineer & Full Stack Developer',
     template: '%s | Tebarek Wachamo'
   },
   description: 'Full-stack developer specializing in React, Next.js, Node.js, and modern web technologies. Building exceptional digital experiences.',
-  keywords: ['full-stack developer', 'react', 'next.js', 'typescript', 'web development'],
+  keywords: ['software engineer', 'nestjs', 'nest.js', 'full-stack developer', 'react', 'next.js', 'typescript', 'web development'],
   authors: [{ name: 'Tebarek Wachamo' }],
   creator: 'Tebarek Wachamo',
   metadataBase: new URL('https://tebarek.dev'),
@@ -22,13 +22,13 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://tebarek.dev',
-    title: 'Tebarek Wachamo - Full Stack Developer',
+    title: 'Tebarek Wachamo - Software Engineer & Full Stack Developer',
     description: 'Full-stack developer building exceptional digital experiences',
     siteName: 'Tebarek Wachamo Portfolio',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Tebarek Wachamo - Full Stack Developer',
+    title: 'Tebarek Wachamo - Software Engineer & Full Stack Developer',
     description: 'Full-stack developer building exceptional digital experiences',
     creator: '@TebarekWachamo',
   },

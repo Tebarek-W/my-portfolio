@@ -2,7 +2,7 @@ import { Project, Experience, Skill, SocialLink } from '@/types/portfolio';
 
 export const personalInfo = {
   name: "Tebarek Wachamo",
-  title: "Full-Stack Developer",
+  title: "Software Engineer & Full-Stack Developer",
   description: "I build exceptional digital experiences that are fast, accessible, visually appealing, and responsive.",
   email: "tebarekwache@gmail.com",
   phone: "+251 954197597",
@@ -25,6 +25,7 @@ export const skills: Skill[] = [
   { name: "PostgreSQL", level: 80, category: "backend", icon: "postgresql" },
   { name: "MongoDB", level: 78, category: "backend", icon: "mongodb" },
   { name: "Express.js", level: 85, category: "backend", icon: "express" },
+  { name: "NestJS", level: 82, category: "backend", icon: "nestjs" },
   
   // Tools
   { name: "Git", level: 90, category: "tools", icon: "git" },

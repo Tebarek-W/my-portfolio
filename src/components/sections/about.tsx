@@ -123,18 +123,14 @@ export function AboutSection() {
             <h3 className="text-3xl font-bold mb-6 font-display">My Journey</h3>
             <div className="space-y-6 text-gray-600 dark:text-gray-300 font-sans leading-relaxed">
               <p>
-                Hello! I&apos;m {personalInfo.name}, a passionate full-stack
-                developer with a <strong className="text-primary-500">Bachelor&apos;s degree in Computer Science from Haramaya University</strong> (June 2025). 
-                My academic journey provided a solid foundation in the core principles of software engineering.
+                Hello! I&apos;m {personalInfo.name}, a passionate <strong className="text-gray-900 dark:text-white">software engineer and full-stack developer</strong> with a <strong className="text-primary-500 font-bold">Bachelor&apos;s degree in Computer Science from Haramaya University</strong> (June 2025). 
+                My academic journey provided a solid foundation in the core principles of <strong className="text-gray-900 dark:text-white">software engineering</strong>.
               </p>
               <p>
-                I specialize in <span className="text-accent-indigo font-bold italic">React, Next.js, TypeScript, and JavaScript</span>, 
-                striving to build applications that are not just functional, but also visually stunning 
-                and highly performant.
+                I specialize in <span className="text-accent-indigo font-bold italic">React, Next.js, TypeScript, and JavaScript</span> on the frontend, while leveraging <span className="text-accent-rose font-bold italic">NestJS and Node.js</span> to architect <strong className="text-gray-900 dark:text-white">robust, scalable backends</strong>.
               </p>
               <p>
-                Whether it&apos;s architecting complex backends or polishing subtle UI micro-interactions, 
-                I approach every challenge with curiosity and a commitment to excellence.
+                Whether it&apos;s <strong className="text-primary-500">architecting complex backends</strong> or <strong className="text-primary-500">polishing subtle UI micro-interactions</strong>, I approach every challenge with curiosity and a commitment to excellence.
               </p>
             </div>
           </motion.div>
