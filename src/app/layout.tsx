@@ -53,6 +53,18 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className={`${inter.variable} ${outfit.variable} ${plusJakarta.variable}`}>
       <body className="font-sans antialiased selection:bg-primary-500/30">
+        {/* Animated floating orbs - pure CSS, no JS needed */}
+        <div className="animated-orbs" aria-hidden="true">
+          <div className="orb orb-1" />
+          <div className="orb orb-2" />
+          <div className="orb orb-3" />
+          <div className="orb orb-4" />
+          <div className="particle particle-1" />
+          <div className="particle particle-2" />
+          <div className="particle particle-3" />
+          <div className="particle particle-4" />
+          <div className="particle particle-5" />
+        </div>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
           {children}
           <Toaster position="top-right" />

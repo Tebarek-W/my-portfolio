@@ -38,6 +38,19 @@ export const skills: Skill[] = [
 
 export const projects: Project[] = [
   {
+    id: 101,
+    title: "Gibir Negari",
+    description: "Automated tax reporting and filing platform featuring AI-powered extraction and ERP integrations.",
+    longDescription: "An advanced automation platform dealing with eTax, SSL VPN, and TASS. Built with Next.js, Prisma, PostgreSQL (Supabase), Redis, and BullMQ. Features include AI-powered receipt extraction, tax filing workflows, automated depreciation, and deep integration with Ethiopian tax systems using Google Generative AI.",
+    image: "/images/projects/gibir-negari.png",
+    technologies: ["Next.js", "TypeScript", "Prisma", "PostgreSQL", "Redis", "BullMQ", "AI"],
+    githubUrl: "#",
+    liveUrl: "https://www.gibirnegari.com/",
+    featured: true,
+    slug: "gibir-negari"
+  },
+
+  {
     id: 0,
     title: "Kelal-Gebeya",
     description: "Modern full-stack e-commerce platform with real-time features and secure payments",
@@ -54,7 +67,7 @@ export const projects: Project[] = [
     title: "Facial Recognition Attendance System",
     description: "Automated attendance tracking with 95% accuracy, reducing manual effort by 70%",
     longDescription: "A sophisticated facial recognition system built with Python and OpenCV that automates attendance tracking with high accuracy. The system uses computer vision algorithms to identify individuals and record attendance in real-time, significantly reducing manual administrative work.",
-    image: "/images/projects/facial-recognition.JPG",
+    image: "/images/projects/facial-recognition.jpg",
     technologies: ["Python", "OpenCV", "PostgreSQL", "Computer Vision", "Face Recognition"],
     githubUrl: "https://github.com/Tebarek-W/Facial-recognition-attendance-system-FRAS-",
     liveUrl: "https://github.com/Tebarek-W/Facial-recognition-attendance-system-FRAS-",
@@ -128,13 +141,15 @@ export const experiences: Experience[] = [
     id: 1,
     company: "GLYME TECH Solutions",
     position: "Full-stack Web Developer",
-    duration: "Sep 2025 - Mar 2026",
+    title: "Full-stack Web Developer",
+    duration: "Jul 2025 - Present",
+    location: "Addis Ababa, Ethiopia",
     description: [
-      "Built high-performance web apps using Next.js, React, and Node.js with 99.9% uptime",
-      "Optimized Senedu ERP operations by architecting custom workflows and robust RBAC security",
+      "Building high-performance web apps using Next.js, React, and Node.js with 99.9% uptime",
+      "Developed and maintained key systems including Gibir Negari, Senedu ERP, and Derash lucky draw game",
+      "Optimized operations by architecting custom workflows and robust RBAC security for enterprise systems",
       "Designed secure RESTful APIs featuring role-based authentication and access control",
-      "Delivered the Super BD Consulting engineering website with responsive design and modern UI",
-      "Collaborated with team members to implement features and maintain project quality"
+      "Collaborated with cross-functional teams to implement new features and ensure project quality"
     ],
     technologies: ["React", "Next.js", "Tailwind CSS", "Node.js", "TypeScript", "JavaScript", "HTML", "CSS", "Git"],
     logo: "/images/companies/glyme.jpg"
@@ -143,7 +158,9 @@ export const experiences: Experience[] = [
     id: 2,
     company: "Makalla Technologies",
     position: "Full-stack Web Developer (Intern)",
+    title: "Full-stack Web Developer (Intern)",
     duration: "Jun 2024 - Sep 2024",
+    location: "Addis Ababa, Ethiopia",
     description: [
       "Delivered a community membership web app on time by delegating tasks based on team strengths",
       "Implemented key features like user authentication and admin controls using React and PHP",

@@ -3,10 +3,11 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { personalInfo, socialLinks } from "@/data/portfolio-data";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Send, Github, Linkedin, Code } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import Magnetic from "@/components/ui/magnetic";
+import { cn } from "@/lib/utils";
 
 interface ContactFormData {
   name: string;
@@ -76,14 +77,55 @@ export function ContactSection() {
     },
   };
 
+  const contactInfo = [
+    { 
+      icon: Mail, 
+      value: personalInfo.email, 
+      label: "Email",
+      bgClass: "bg-primary-50 dark:bg-primary-500/10", 
+      textClass: "text-primary-600 dark:text-primary-400",
+      borderClass: "border-primary-100 dark:border-primary-500/20",
+      href: `mailto:${personalInfo.email}`
+    },
+    { 
+      icon: Phone, 
+      value: personalInfo.phone, 
+      label: "Phone",
+      bgClass: "bg-purple-50 dark:bg-purple-500/10", 
+      textClass: "text-purple-600 dark:text-purple-400",
+      borderClass: "border-purple-100 dark:border-purple-500/20",
+      href: `tel:${personalInfo.phone.replace(/\s/g, '')}`
+    },
+    { 
+      icon: MapPin, 
+      value: personalInfo.location, 
+      label: "Location",
+      bgClass: "bg-cyan-50 dark:bg-cyan-500/10", 
+      textClass: "text-cyan-600 dark:text-cyan-400",
+      borderClass: "border-cyan-100 dark:border-cyan-500/20",
+      href: `https://maps.google.com/?q=${personalInfo.location}`
+    },
+  ];
+
+  const getSocialIcon = (name: string) => {
+    switch (name.toLowerCase()) {
+      case 'github': return <Github className="w-5 h-5" />;
+      case 'linkedin': return <Linkedin className="w-5 h-5" />;
+      case 'email': return <Mail className="w-5 h-5" />;
+      default: return <Code className="w-5 h-5" />;
+    }
+  };
+
   return (
-    <section id="contact" className="section-padding bg-white dark:bg-black relative overflow-hidden">
+    <section id="contact" className="section-padding bg-slate-50 dark:bg-[#0e1117] relative overflow-hidden">
       {/* Background decoration */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-primary-500/5 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-primary-500/5 blur-[150px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-accent-violet/5 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute inset-0 noise-overlay" />
 
       <div className="container-custom relative z-10">
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-20"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -92,51 +134,66 @@ export function ContactSection() {
           <h2 className="text-4xl md:text-5xl font-bold font-display mb-4">
             Let&apos;s <span className="gradient-text">Connect</span>
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-sans">
-            Have a project in mind or just want to say hi? I&apos;m always open to new opportunities.
+          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-sans text-balance">
+            Have a project in mind or just want to say hi? I&apos;m always open to new opportunities and exciting collaborations.
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+        <div className="grid lg:grid-cols-12 gap-12 max-w-6xl mx-auto">
           {/* Contact Information */}
           <motion.div
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="space-y-8"
+            className="lg:col-span-5 space-y-8"
           >
-            <motion.div variants={itemVariants} className="glass-card p-8 rounded-3xl border border-white/10">
-              <h3 className="text-2xl font-bold mb-6 font-display">Contact Details</h3>
+            <motion.div variants={itemVariants} className="glass-card p-8 md:p-10 rounded-[2rem] border border-gray-200/50 dark:border-white/10 bg-white/50 dark:bg-white/5">
+              <h3 className="text-2xl font-bold mb-8 font-display text-gray-900 dark:text-white">Contact Details</h3>
               <div className="space-y-6">
-                {[
-                  { icon: Mail, value: personalInfo.email, color: "primary" },
-                  { icon: Phone, value: personalInfo.phone, color: "accent-violet" },
-                  { icon: MapPin, value: personalInfo.location, color: "accent-cyan" },
-                ].map((item, idx) => (
-                  <div key={idx} className="flex items-center group">
+                {contactInfo.map((item, idx) => (
+                  <a 
+                    href={item.href}
+                    target={item.icon === MapPin ? "_blank" : "_self"}
+                    rel="noopener noreferrer"
+                    key={idx} 
+                    className="flex items-center group p-3 -m-3 rounded-2xl hover:bg-gray-50 dark:hover:bg-white/5 transition-colors"
+                  >
                     <Magnetic>
-                      <div className={`w-12 h-12 bg-${item.color}-500/10 rounded-2xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform`}>
-                        <item.icon className={`w-5 h-5 text-${item.color}-500`} />
+                      <div className={cn(
+                        "w-14 h-14 rounded-2xl flex items-center justify-center mr-5 transition-transform duration-300 border shadow-sm group-hover:scale-110",
+                        item.bgClass,
+                        item.borderClass
+                      )}>
+                        <item.icon className={cn("w-6 h-6", item.textClass)} />
                       </div>
                     </Magnetic>
-                    <span className="text-gray-700 dark:text-gray-300 font-sans font-medium">{item.value}</span>
-                  </div>
+                    <div>
+                      <p className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-1">{item.label}</p>
+                      <span className="text-gray-900 dark:text-white font-sans font-medium text-lg group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                        {item.value}
+                      </span>
+                    </div>
+                  </a>
                 ))}
               </div>
             </motion.div>
 
-            <motion.div variants={itemVariants} className="glass-card p-8 rounded-3xl border border-white/10 uppercase tracking-widest text-[10px] font-bold">
-               <h4 className="mb-4 text-gray-500 text-xs">Social Connections</h4>
-               <div className="flex gap-4">
+            <motion.div variants={itemVariants} className="glass-card p-8 rounded-[2rem] border border-gray-200/50 dark:border-white/10 bg-white/50 dark:bg-white/5 text-center sm:text-left">
+               <h4 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">Social Connections</h4>
+               <div className="flex flex-wrap justify-center sm:justify-start gap-4">
                   {socialLinks.map((social) => (
                     <Magnetic key={social.name}>
                       <a
                         href={social.url}
-                        className="w-12 h-12 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center hover:bg-primary-500/20 transition-all group"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-14 h-14 bg-white dark:bg-gray-900 border border-gray-200 dark:border-white/10 rounded-2xl flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-primary-50 hover:text-primary-600 hover:border-primary-200 dark:hover:bg-primary-500/10 dark:hover:text-primary-400 dark:hover:border-primary-500/30 transition-all group shadow-sm hover:shadow-md"
                         aria-label={social.name}
                       >
-                        <span className="text-lg font-display text-gray-400 group-hover:text-primary-500">{social.name.charAt(0)}</span>
+                        <span className="group-hover:scale-110 transition-transform">
+                          {getSocialIcon(social.name)}
+                        </span>
                       </a>
                     </Magnetic>
                   ))}
@@ -149,93 +206,90 @@ export function ContactSection() {
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-7"
           >
-            <div className="glass-card p-8 rounded-3xl border border-white/10">
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-4">
+            <div className="glass-card p-8 md:p-10 rounded-[2rem] border border-gray-200/50 dark:border-white/10 bg-white/50 dark:bg-white/5 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-primary-500/5 blur-[80px] rounded-full pointer-events-none" />
+              
+              <h3 className="text-2xl font-bold mb-8 font-display text-gray-900 dark:text-white">Send a Message</h3>
+              
+              <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label htmlFor="name" className="text-xs font-bold uppercase tracking-wider text-gray-500 ml-1">
-                      Name
-                    </label>
+                    <label htmlFor="name" className="text-sm font-medium text-gray-700 dark:text-gray-300 ml-1">Name</label>
                     <input
                       type="text"
                       id="name"
                       name="name"
-                      required
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary-500/50 transition-all font-sans text-sm"
-                      placeholder="Enter your name"
+                      required
+                      className="w-full px-5 py-4 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-white/10 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 outline-none transition-all duration-300 font-sans text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-600 shadow-sm"
+                      placeholder="John Doe"
                     />
                   </div>
                   <div className="space-y-2">
-                    <label htmlFor="email" className="text-xs font-bold uppercase tracking-wider text-gray-500 ml-1">
-                      Email
-                    </label>
+                    <label htmlFor="email" className="text-sm font-medium text-gray-700 dark:text-gray-300 ml-1">Email</label>
                     <input
                       type="email"
                       id="email"
                       name="email"
-                      required
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary-500/50 transition-all font-sans text-sm"
-                      placeholder="your@email.com"
+                      required
+                      className="w-full px-5 py-4 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-white/10 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 outline-none transition-all duration-300 font-sans text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-600 shadow-sm"
+                      placeholder="john@example.com"
                     />
                   </div>
                 </div>
                 
                 <div className="space-y-2">
-                  <label htmlFor="subject" className="text-xs font-bold uppercase tracking-wider text-gray-500 ml-1">
-                    Subject
-                  </label>
+                  <label htmlFor="subject" className="text-sm font-medium text-gray-700 dark:text-gray-300 ml-1">Subject</label>
                   <input
                     type="text"
                     id="subject"
                     name="subject"
-                    required
                     value={formData.subject}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary-500/50 transition-all font-sans text-sm"
+                    required
+                    className="w-full px-5 py-4 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-white/10 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 outline-none transition-all duration-300 font-sans text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-600 shadow-sm"
                     placeholder="Project Inquiry"
                   />
                 </div>
                 
                 <div className="space-y-2">
-                  <label htmlFor="message" className="text-xs font-bold uppercase tracking-wider text-gray-500 ml-1">
-                    Message
-                  </label>
+                  <label htmlFor="message" className="text-sm font-medium text-gray-700 dark:text-gray-300 ml-1">Message</label>
                   <textarea
                     id="message"
                     name="message"
-                    required
-                    rows={5}
                     value={formData.message}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary-500/50 transition-all font-sans text-sm resize-none"
-                    placeholder="Tell me more about your requirements..."
+                    required
+                    rows={5}
+                    className="w-full px-5 py-4 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-white/10 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 outline-none transition-all duration-300 font-sans resize-none text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-600 shadow-sm"
+                    placeholder="Hello Tebarek, I'd like to discuss..."
                   />
                 </div>
-                
+
                 <Magnetic>
                   <Button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full py-6 rounded-2xl bg-gradient-to-r from-primary-600 to-accent-violet hover:from-primary-700 hover:to-accent-violet/90 text-white font-bold font-display shadow-xl shadow-primary-500/20 relative overflow-hidden group"
+                    className="w-full py-6 rounded-xl bg-gray-900 hover:bg-gray-800 text-white dark:bg-primary-500 dark:hover:bg-primary-600 font-bold text-lg tracking-wide shadow-xl shadow-gray-900/10 dark:shadow-primary-500/20 transition-all duration-300 disabled:opacity-70 group"
                   >
-                    <motion.div 
-                      className="absolute inset-0 bg-white/20"
-                      initial={{ x: "-100%" }}
-                      whileHover={{ x: "100%" }}
-                      transition={{ duration: 0.5 }}
-                    />
                     {isLoading ? (
-                      "Sending..."
+                      <span className="flex items-center">
+                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Sending Message...
+                      </span>
                     ) : (
-                      <span className="flex items-center justify-center">
-                        <Send className="w-5 h-5 mr-3 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                        Shoot Message
+                      <span className="flex items-center">
+                        Send Message
+                        <Send className="w-5 h-5 ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                       </span>
                     )}
                   </Button>
