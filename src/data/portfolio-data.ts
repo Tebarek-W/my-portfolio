@@ -3,7 +3,7 @@ import { Project, Experience, Skill, SocialLink } from '@/types/portfolio';
 export const personalInfo = {
   name: "Tebarek Wachamo",
   title: "Software Engineer & Full-Stack Developer",
-  description: "I build exceptional digital experiences that are fast, accessible, visually appealing, and responsive.",
+  description: "I design and build fast, accessible products—from polished interfaces to scalable APIs—that feel effortless to use.",
   email: "tebarekwache@gmail.com",
   phone: "+251 954197597",
   location: "Addis Ababa, Ethiopia",

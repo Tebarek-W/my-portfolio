@@ -1,12 +1,20 @@
 import type { Metadata } from 'next';
-import { Inter, Outfit, Plus_Jakarta_Sans } from 'next/font/google';
+import { Syne, DM_Sans } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/providers/theme-provider';
 import { Toaster } from 'react-hot-toast';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
-const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit' });
-const plusJakarta = Plus_Jakarta_Sans({ subsets: ['latin'], variable: '--font-plus-jakarta' });
+const syne = Syne({
+  subsets: ['latin'],
+  variable: '--font-syne',
+  display: 'swap',
+});
+
+const dmSans = DM_Sans({
+  subsets: ['latin'],
+  variable: '--font-dm-sans',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: {
@@ -51,23 +59,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${outfit.variable} ${plusJakarta.variable}`}>
-      <body className="font-sans antialiased selection:bg-primary-500/30">
-        {/* Animated floating orbs - pure CSS, no JS needed */}
-        <div className="animated-orbs" aria-hidden="true">
-          <div className="orb orb-1" />
-          <div className="orb orb-2" />
-          <div className="orb orb-3" />
-          <div className="orb orb-4" />
-          <div className="particle particle-1" />
-          <div className="particle particle-2" />
-          <div className="particle particle-3" />
-          <div className="particle particle-4" />
-          <div className="particle particle-5" />
-        </div>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${syne.variable} ${dmSans.variable}`}
+    >
+      <body className="font-sans antialiased">
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           {children}
-          <Toaster position="top-right" />
+          <Toaster
+            position="top-right"
+            toastOptions={{
+              className: 'font-sans text-sm',
+              style: {
+                borderRadius: '12px',
+                background: 'var(--color-surface-raised)',
+                color: 'var(--color-ink)',
+                border: '1px solid var(--color-border)',
+              },
+            }}
+          />
         </ThemeProvider>
       </body>
     </html>

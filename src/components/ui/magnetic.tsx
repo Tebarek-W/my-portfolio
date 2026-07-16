@@ -1,34 +1,44 @@
 "use client";
 
 import React, { useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
-export default function Magnetic({ children }: { children: React.ReactNode }) {
+export default function Magnetic({
+  children,
+  strength = 0.2,
+}: {
+  children: React.ReactNode;
+  strength?: number;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
+  const prefersReducedMotion = useReducedMotion();
 
   const handleMouseMove = (e: React.MouseEvent) => {
+    if (prefersReducedMotion || !ref.current) return;
     const { clientX, clientY } = e;
-    const { height, width, left, top } = ref.current!.getBoundingClientRect();
+    const { height, width, left, top } = ref.current.getBoundingClientRect();
     const middleX = clientX - (left + width / 2);
     const middleY = clientY - (top + height / 2);
-    setPosition({ x: middleX * 0.35, y: middleY * 0.35 });
+    setPosition({ x: middleX * strength, y: middleY * strength });
   };
 
   const handleMouseLeave = () => {
     setPosition({ x: 0, y: 0 });
   };
 
-  const { x, y } = position;
+  if (prefersReducedMotion) {
+    return <>{children}</>;
+  }
 
   return (
     <motion.div
-      style={{ position: "relative" }}
+      style={{ position: "relative", display: "inline-flex" }}
       ref={ref}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      animate={{ x, y }}
-      transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
+      animate={position}
+      transition={{ type: "spring", stiffness: 180, damping: 18, mass: 0.2 }}
     >
       {children}
     </motion.div>

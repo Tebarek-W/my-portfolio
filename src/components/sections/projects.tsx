@@ -4,203 +4,265 @@ import { motion, useInView } from "framer-motion";
 import { Project } from "@/types/portfolio";
 import { projects } from "@/data/portfolio-data";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Github, ArrowRight } from "lucide-react";
+import { ExternalLink, Github, ArrowUpRight, Layers3, RotateCw } from "lucide-react";
 import Image from "next/image";
 import Magnetic from "@/components/ui/magnetic";
 import { useState, useRef } from "react";
+import { fadeUp, staggerContainer, viewportOnce } from "@/lib/animations";
 
-const ProjectCard = ({ project, index, handleAction }: { project: Project, index: number, handleAction: (p: Project, t: 'github' | 'live') => void }) => {
+const ProjectCard = ({
+  project,
+  index,
+  handleAction,
+}: {
+  project: Project;
+  index: number;
+  handleAction: (p: Project, t: "github" | "live") => void;
+}) => {
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [isFlipped, setIsFlipped] = useState(false);
   const cardRef = useRef(null);
-  const isInView = useInView(cardRef, { once: true, margin: "-100px" });
+  const isInView = useInView(cardRef, { once: true, margin: "-80px" });
 
-  const hasLiveDemo = project.liveUrl && project.liveUrl !== '#';
-  const hasGitHubRepo = project.githubUrl && project.githubUrl !== '#';
+  const hasLiveDemo = project.liveUrl && project.liveUrl !== "#";
+  const hasGitHubRepo = project.githubUrl && project.githubUrl !== "#";
 
   return (
-    <motion.div
+    <motion.article
       ref={cardRef}
-      initial={{ opacity: 0, y: 50, scale: 0.95 }}
-      animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 50, scale: 0.95 }}
-      whileHover={{ y: -8, scale: 1.02, transition: { duration: 0.3, ease: "easeOut" } }}
-      transition={{ duration: 0.6, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-      className="glass-card rounded-[2rem] overflow-hidden group border-gray-200/50 dark:border-white/10 relative bg-white/60 dark:bg-white/[0.06] hover:border-primary-500/40 hover:shadow-2xl hover:shadow-primary-500/20"
+      initial={{ opacity: 0, y: 24 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+      transition={{ duration: 0.55, delay: index * 0.07, ease: [0.16, 1, 0.3, 1] }}
+      className="group relative h-[33rem] cursor-pointer rounded-2xl transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_28px_70px_-25px_rgba(13,148,136,0.5)]"
+      style={{ perspective: 1400 }}
+      onMouseEnter={() => setIsFlipped(true)}
+      onMouseLeave={() => setIsFlipped(false)}
+      onClick={() => setIsFlipped((current) => !current)}
     >
-      {/* Glow effect on hover */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary-500/0 via-primary-500/0 to-accent-violet/0 group-hover:from-primary-500/10 group-hover:to-accent-violet/10 transition-colors duration-500 rounded-[2rem] pointer-events-none" />
-      
-      {/* Image Container */}
-      <div className="relative h-64 overflow-hidden bg-gray-100 dark:bg-gray-800">
-        {!imageLoaded && (
-          <div className="absolute inset-0 bg-gray-200 dark:bg-gray-700 animate-pulse" />
-        )}
-        <Image
-          src={project.image}
-          alt={project.title}
-          fill
-          className={`object-cover transition-all duration-700 group-hover:scale-105 group-hover:-translate-y-2 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          quality={90}
-          priority={index < 2}
-          onLoad={() => setImageLoaded(true)}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
-        
-        {/* Hover Overlay Actions */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 backdrop-blur-[2px] bg-black/20 gap-4">
-          <div className="flex gap-4 transform translate-y-8 group-hover:translate-y-0 transition-transform duration-500 ease-out">
-            {hasLiveDemo && (
-              <Magnetic>
+      <motion.div
+        className="relative h-full w-full"
+        animate={{ rotateY: isFlipped ? 180 : 0 }}
+        transition={{ type: "spring", stiffness: 180, damping: 22 }}
+        style={{ transformStyle: "preserve-3d" }}
+      >
+        {/* Front face */}
+        <div
+          className="absolute inset-0 flex flex-col overflow-hidden rounded-2xl border border-surface-border bg-surface-raised dark:border-dark-border dark:bg-dark-card"
+          style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden" }}
+          aria-hidden={isFlipped}
+        >
+          <div className="relative aspect-[16/10] overflow-hidden bg-surface-sunken dark:bg-dark-alt">
+            {!imageLoaded && (
+              <div className="absolute inset-0 animate-pulse bg-surface-border/60 dark:bg-white/5" />
+            )}
+            <Image
+              src={project.image}
+              alt={project.title}
+              fill
+              className={`object-cover transition-transform duration-700 ease-premium group-hover:scale-110 ${
+                imageLoaded ? "opacity-100" : "opacity-0"
+              }`}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              quality={90}
+              priority={index < 2}
+              onLoad={() => setImageLoaded(true)}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
+            <div className="absolute left-4 top-4">
+              <span className="rounded-md bg-primary-500/90 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-white backdrop-blur-sm">
+                {project.technologies[0]}
+              </span>
+            </div>
+            <span className="absolute bottom-4 right-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/15 text-white backdrop-blur-md transition-transform duration-500 group-hover:rotate-180 group-hover:bg-primary-500">
+              <RotateCw className="h-4 w-4" aria-hidden="true" />
+            </span>
+          </div>
+
+          <div className="flex flex-1 flex-col p-6 sm:p-7">
+            <div className="mb-3 flex items-start justify-between gap-3">
+              <h3 className="font-display text-xl font-bold tracking-tight text-ink dark:text-white">
+                {project.title}
+              </h3>
+              <span className="shrink-0 font-display text-sm font-medium text-ink-faint dark:text-slate-600">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+            </div>
+            <p className="line-clamp-3 text-sm leading-relaxed text-ink-muted dark:text-slate-400">
+              {project.description}
+            </p>
+            <div className="mt-auto flex items-center justify-between border-t border-surface-border pt-5 dark:border-dark-border">
+              <button
+                type="button"
+                tabIndex={isFlipped ? -1 : 0}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  setIsFlipped(true);
+                }}
+                className="inline-flex items-center gap-2 rounded-lg text-xs font-bold uppercase tracking-[0.15em] text-primary-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600 focus-visible:ring-offset-2 dark:text-primary-400"
+              >
+                <Layers3 className="h-4 w-4" aria-hidden="true" />
+                View details
+              </button>
+              <ArrowUpRight className="h-4 w-4 text-ink-faint transition-transform duration-300 group-hover:rotate-45 dark:text-slate-500" />
+            </div>
+          </div>
+        </div>
+
+        {/* Back face */}
+        <div
+          className="absolute inset-0 flex flex-col overflow-y-auto rounded-2xl border border-primary-500/30 bg-[#071318] p-6 text-white shadow-[0_24px_70px_-25px_rgba(13,148,136,0.65)] sm:p-7"
+          style={{
+            backfaceVisibility: "hidden",
+            WebkitBackfaceVisibility: "hidden",
+            transform: "rotateY(180deg)",
+          }}
+          aria-hidden={!isFlipped}
+        >
+          <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-primary-400/20 blur-[80px]" />
+          <div className="pointer-events-none absolute -bottom-24 -left-16 h-60 w-60 rounded-full bg-blue-500/15 blur-[80px]" />
+          <div className="color-grid pointer-events-none absolute inset-0 opacity-20" />
+
+          <div className="relative z-10 flex min-h-full flex-col">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <span className="text-xs font-bold uppercase tracking-[0.2em] text-primary-300">
+                  Project details
+                </span>
+                <h3 className="mt-2 font-display text-2xl font-bold tracking-tight">
+                  {project.title}
+                </h3>
+              </div>
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/5">
+                <RotateCw className="h-4 w-4" aria-hidden="true" />
+              </span>
+            </div>
+
+            <p className="mt-5 text-sm leading-relaxed text-white/65">
+              {project.longDescription}
+            </p>
+
+            <div className="mt-6">
+              <p className="mb-3 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-white/45">
+                <Layers3 className="h-4 w-4 text-primary-300" aria-hidden="true" />
+                Technology stack
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {project.technologies.map((tech, techIndex) => (
+                  <motion.span
+                    key={tech}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={isFlipped ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+                    transition={{ delay: isFlipped ? techIndex * 0.035 + 0.15 : 0 }}
+                    className="rounded-lg border border-primary-300/15 bg-primary-300/10 px-2.5 py-1.5 text-xs font-medium text-primary-100"
+                  >
+                    {tech}
+                  </motion.span>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-auto flex flex-wrap gap-2 border-t border-white/10 pt-5">
+              {hasLiveDemo && (
                 <Button
                   size="sm"
-                  onClick={() => handleAction(project, 'live')}
-                  className="bg-primary-500 text-white hover:bg-primary-600 border-0 shadow-[0_0_20px_rgba(14,165,233,0.4)] rounded-full px-6 font-bold tracking-wide"
+                  tabIndex={isFlipped ? 0 : -1}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    handleAction(project, "live");
+                  }}
+                  className="bg-primary-300 text-ink hover:bg-white dark:bg-primary-300"
                 >
-                  <ExternalLink className="w-4 h-4 mr-2" />
-                  Live Preview
+                  <ExternalLink className="h-3.5 w-3.5" />
+                  Live preview
                 </Button>
-              </Magnetic>
-            )}
-          </div>
-          <div className="flex gap-4 transform translate-y-8 group-hover:translate-y-0 transition-transform duration-500 delay-75 ease-out">
-            {hasGitHubRepo && (
-              <Magnetic>
+              )}
+              {hasGitHubRepo && (
                 <Button
+                  size="sm"
                   variant="outline"
-                  size="sm"
-                  onClick={() => handleAction(project, 'github')}
-                  className="bg-black/50 border-white/20 text-white hover:bg-white hover:text-black backdrop-blur-md rounded-full px-6 font-bold tracking-wide transition-colors"
+                  tabIndex={isFlipped ? 0 : -1}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    handleAction(project, "github");
+                  }}
+                  className="border-white/20 text-white hover:border-white/40 hover:bg-white/10 dark:border-white/20 dark:text-white"
                 >
-                  <Github className="w-4 h-4 mr-2" />
-                  Source Code
+                  <Github className="h-3.5 w-3.5" />
+                  Source code
                 </Button>
-              </Magnetic>
-            )}
+              )}
+              {!hasLiveDemo && !hasGitHubRepo && (
+                <span className="text-xs text-white/45">Case study coming soon</span>
+              )}
+            </div>
           </div>
         </div>
-
-        {/* Project Number */}
-        <div className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-black/30 backdrop-blur-md border border-white/10 text-white font-display font-bold text-lg">
-          {index + 1}
-        </div>
-
-        {/* Primary Tech Badge */}
-        <div className="absolute top-4 left-4">
-           <motion.span 
-            className="px-4 py-1.5 bg-black/50 backdrop-blur-md border border-white/20 text-white text-[10px] uppercase tracking-widest font-bold rounded-full shadow-lg"
-            whileHover={{ scale: 1.05, backgroundColor: "rgba(14,165,233,0.8)" }}
-           >
-            {project.technologies[0]}
-          </motion.span>
-        </div>
-      </div>
-
-      {/* Content */}
-      <div className="p-8 relative">
-        <h3 className="text-2xl font-bold mb-3 font-display text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
-          {project.title}
-        </h3>
-        <p className="text-gray-600 dark:text-gray-400 mb-6 line-clamp-2 text-sm leading-relaxed font-sans text-balance">
-          {project.description}
-        </p>
-        
-        {/* Tech Tags */}
-        <div className="flex flex-wrap gap-2 mb-8">
-          {project.technologies.slice(0, 4).map((tech) => (
-            <span
-              key={tech}
-              className="px-3 py-1 bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-gray-300 text-[10px] font-bold rounded-full border border-gray-200 dark:border-white/5 uppercase tracking-wider group-hover:border-primary-500/30 transition-colors"
-            >
-              {tech}
-            </span>
-          ))}
-          {project.technologies.length > 4 && (
-            <span className="px-3 py-1 bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-gray-300 text-[10px] font-bold rounded-full border border-gray-200 dark:border-white/5 uppercase tracking-wider">
-              +{project.technologies.length - 4}
-            </span>
-          )}
-        </div>
-
-        {/* Footer Action */}
-        <div className="flex items-center justify-between pt-5 border-t border-gray-200/50 dark:border-white/10">
-          <span className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">
-            {project.featured ? "Featured Work" : "Side Project"}
-          </span>
-          <button 
-            onClick={() => handleAction(project, hasLiveDemo ? 'live' : 'github')}
-            className="w-10 h-10 rounded-full bg-primary-50 dark:bg-primary-500/10 flex items-center justify-center text-primary-600 dark:text-primary-400 group-hover:bg-primary-500 group-hover:text-white transition-colors"
-            aria-label="View Project"
-          >
-            <ArrowRight className="w-5 h-5 -rotate-45 group-hover:rotate-0 transition-transform duration-300" />
-          </button>
-        </div>
-      </div>
-    </motion.div>
+      </motion.div>
+    </motion.article>
   );
 };
 
 export function ProjectsSection() {
-  const featuredProjects = projects.filter(project => project.featured);
+  const featuredProjects = projects.filter((project) => project.featured);
 
-  const handleProjectAction = (project: Project, type: 'github' | 'live') => {
-    if (type === 'github' && project.githubUrl && project.githubUrl !== '#') {
-      window.open(project.githubUrl, '_blank');
-    } else if (type === 'live' && project.liveUrl && project.liveUrl !== '#') {
-      window.open(project.liveUrl, '_blank');
+  const handleProjectAction = (project: Project, type: "github" | "live") => {
+    if (type === "github" && project.githubUrl && project.githubUrl !== "#") {
+      window.open(project.githubUrl, "_blank");
+    } else if (type === "live" && project.liveUrl && project.liveUrl !== "#") {
+      window.open(project.liveUrl, "_blank");
     }
   };
 
   return (
-    <section id="projects" className="section-padding bg-slate-50 dark:bg-[#0e1117] relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary-500/5 blur-[150px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-accent-violet/5 blur-[150px] rounded-full pointer-events-none" />
-      <div className="absolute inset-0 noise-overlay" />
-
+    <section id="projects" className="section-padding aurora-wash relative overflow-hidden">
+      <div className="color-grid pointer-events-none absolute inset-0 opacity-50" aria-hidden="true" />
+      <div className="ambient-drift absolute -right-24 top-1/3 h-72 w-72 rounded-full bg-amber-400/10 blur-[100px]" aria-hidden="true" />
       <div className="container-custom relative z-10">
         <motion.div
-          className="text-center mb-20"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          className="mb-14 flex flex-col gap-6 md:flex-row md:items-end md:justify-between"
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportOnce}
+          variants={staggerContainer}
         >
-          <h2 className="section-header">
-            Featured <span className="gradient-text">Projects</span>
-          </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-sans text-balance">
-            A selection of my best work, combining clean code with beautiful design.
-          </p>
+          <div className="max-w-2xl">
+            <motion.p variants={fadeUp} className="section-label">
+              Work
+            </motion.p>
+            <motion.h2 variants={fadeUp} className="section-header">
+              Selected projects
+            </motion.h2>
+            <motion.p variants={fadeUp} className="section-lead">
+              Products and systems where clean architecture meets thoughtful design.
+            </motion.p>
+          </div>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {featuredProjects.map((project, index) => (
-            <ProjectCard 
-              key={project.title} 
-              project={project} 
-              index={index} 
-              handleAction={handleProjectAction} 
+            <ProjectCard
+              key={project.title}
+              project={project}
+              index={index}
+              handleAction={handleProjectAction}
             />
           ))}
         </div>
 
         <motion.div
-          className="text-center mt-20"
-          initial={{ opacity: 0, y: 30 }}
+          className="mt-14 text-center"
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.4 }}
+          viewport={viewportOnce}
         >
           <Magnetic>
             <Button
+              variant="outline"
               size="lg"
-              className="rounded-full bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-900 dark:text-white hover:border-primary-500 hover:text-primary-600 dark:hover:text-primary-400 font-bold group shadow-sm transition-all duration-300 px-8"
-              onClick={() => {
-                window.open('https://github.com/Tebarek-W', '_blank');
-              }}
+              onClick={() => window.open("https://github.com/Tebarek-W", "_blank")}
             >
-              Explore More on GitHub
-              <Github className="ml-3 w-5 h-5 group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" />
+              View more on GitHub
+              <Github className="h-4 w-4" />
             </Button>
           </Magnetic>
         </motion.div>
