@@ -65,7 +65,7 @@ export default function RootLayout({
       className={`${syne.variable} ${dmSans.variable}`}
     >
       <body className="font-sans antialiased">
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
           {children}
           <Toaster
             position="top-right"
