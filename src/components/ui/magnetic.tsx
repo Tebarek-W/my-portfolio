@@ -27,17 +27,13 @@ export default function Magnetic({
     setPosition({ x: 0, y: 0 });
   };
 
-  if (prefersReducedMotion) {
-    return <>{children}</>;
-  }
-
   return (
     <motion.div
       style={{ position: "relative", display: "inline-flex" }}
       ref={ref}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      animate={position}
+      animate={prefersReducedMotion ? { x: 0, y: 0 } : position}
       transition={{ type: "spring", stiffness: 180, damping: 18, mass: 0.2 }}
     >
       {children}

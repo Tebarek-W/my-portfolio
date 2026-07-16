@@ -83,20 +83,33 @@ export function Navbar() {
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
           >
-            <span className={cn(
-              "flex h-9 w-9 items-center justify-center rounded-lg font-display text-sm font-bold transition-colors",
+            <motion.span
+              initial={{ opacity: 0, scale: 0.55, rotate: -18 }}
+              animate={{ opacity: 1, scale: 1, rotate: 0 }}
+              whileHover={{ scale: 1.1, rotate: 6 }}
+              whileTap={{ scale: 0.92 }}
+              transition={{ type: "spring", stiffness: 320, damping: 18 }}
+              className={cn(
+              "relative flex h-9 w-9 overflow-hidden items-center justify-center rounded-lg font-display text-sm font-bold transition-colors",
               scrolled || isOpen
                 ? "bg-ink text-white group-hover:bg-primary-700 dark:bg-primary-500 dark:text-ink dark:group-hover:bg-primary-400"
                 : "bg-primary-300 text-ink group-hover:bg-white"
-            )}>
-              TW
-            </span>
-            <span className={cn(
+            )}
+            >
+              <span className="line-sweep absolute inset-y-0 w-5 -skew-x-12 bg-white/35 blur-sm" aria-hidden="true" />
+              <span className="relative z-10">TW</span>
+            </motion.span>
+            <motion.span
+              initial={{ opacity: 0, x: -8 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.45, delay: 0.15 }}
+              className={cn(
               "hidden font-display text-base font-semibold tracking-tight sm:block",
               scrolled || isOpen ? "text-ink dark:text-white" : "text-white"
-            )}>
+            )}
+            >
               Tebarek
-            </span>
+            </motion.span>
           </a>
 
           <div className="hidden items-center gap-1 lg:flex">

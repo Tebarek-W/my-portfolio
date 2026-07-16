@@ -2,7 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { personalInfo } from "@/data/portfolio-data";
-import { Code, Coffee, GraduationCap, Calendar, Sparkles } from "lucide-react";
+import { Coffee, GraduationCap, Calendar, Github, Sparkles } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { calculateYearsSince } from "@/lib/utils";
 import { fadeUp, staggerContainer, viewportOnce } from "@/lib/animations";
@@ -12,8 +12,9 @@ const AnimatedCounter = ({ value, duration = 2 }: { value: string; duration?: nu
   const nodeRef = useRef(null);
   const inView = useInView(nodeRef, { once: true, margin: "-50px" });
 
-  const isNumber = !isNaN(Number(value.replace(/[^0-9]/g, "")));
-  const numValue = isNumber ? parseInt(value.replace(/[^0-9]/g, "")) : 0;
+  const numericValue = value.match(/\d+/)?.[0];
+  const isNumber = Boolean(numericValue);
+  const numValue = numericValue ? parseInt(numericValue, 10) : 0;
   const suffix = value.replace(/[0-9]/g, "");
 
   useEffect(() => {
@@ -50,10 +51,10 @@ const funFacts = [
     description: "Professional development",
   },
   {
-    icon: Code,
-    title: "Lines of Code",
-    value: "500K+",
-    description: "Written across projects",
+    icon: Github,
+    title: "My Repositories",
+    value: "—",
+    description: "Repos I own or contribute to",
   },
   {
     icon: Coffee,
@@ -97,7 +98,17 @@ const milestones = [
   },
 ];
 
-export function AboutSection() {
+export function AboutSection({
+  githubRepoCount,
+}: {
+  githubRepoCount: number | null;
+}) {
+  const displayedFacts = funFacts.map((fact) =>
+    fact.title === "My Repositories" && githubRepoCount !== null
+      ? { ...fact, value: `${githubRepoCount}+` }
+      : fact
+  );
+
   return (
     <section id="about" className="section-padding aurora-wash color-grid relative overflow-hidden">
       <div className="ambient-drift absolute -right-28 top-24 h-72 w-72 rounded-full bg-blue-500/10 blur-[100px]" aria-hidden="true" />
@@ -165,7 +176,7 @@ export function AboutSection() {
             whileInView="visible"
             viewport={viewportOnce}
           >
-            {funFacts.map((fact) => (
+            {displayedFacts.map((fact) => (
               <motion.div
                 key={fact.title}
                 variants={fadeUp}

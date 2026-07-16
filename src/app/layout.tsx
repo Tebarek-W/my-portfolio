@@ -64,7 +64,7 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${syne.variable} ${dmSans.variable}`}
     >
-      <body className="font-sans antialiased">
+      <body className="font-sans antialiased" suppressHydrationWarning>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
           {children}
           <Toaster
